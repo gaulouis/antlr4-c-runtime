@@ -19,3 +19,4 @@ $ ANTLR_DEBUG=all && ./src/demo/antlr4-c-demo
 ## TODO:
 + Check the CMAKE_BUILD_TYPE to enable AntlrObjectClass.name
 + Create a gdb pretty print python script
++ Implementation of antlr
