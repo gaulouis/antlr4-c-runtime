@@ -2,4 +2,4 @@
 
 + CMake build system
 + No dependencies
-+ Static OOP mecanisme (morphing, heritage)
++ Static OOP mecanisme (morphing, heritage, interface)
