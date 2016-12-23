@@ -96,14 +96,15 @@ type_name##_class_registry(void) \
     if (!klass) { \
         klass = (TypeName##Class*) malloc(sizeof(TypeName##Class)); \
         antlr_type_set_class_size(TypeName##Type, sizeof(TypeName##Class)); \
+        antlr_class[type] = ANTLR_OBJECT_CLASS(klass); \
         \
         type_name##_parent_class = antlr_class[parent_type]; \
-        \
-        antlr_class[type] = ANTLR_OBJECT_CLASS(klass); \
-        _ANTLR_DEFINE_TYPE_EXTENDED_CLASS_DEBUG(type_name) \
-        ANTLR_OBJECT_CLASS(klass)->parent_type = parent_type; \
         int size = antlr_type_get_class_size(parent_type); \
         memcpy(klass, type_name##_parent_class, size); \
+        \
+        _ANTLR_DEFINE_TYPE_EXTENDED_CLASS_DEBUG(type_name) \
+        \
+        ANTLR_OBJECT_CLASS(klass)->parent_type = parent_type; \
         ANTLR_OBJECT_CLASS(klass)->construct = type_name##_internal_construct; \
         ANTLR_OBJECT_CLASS(klass)->init = type_name##_internal_init; \
         /*ANTLR_OBJECT_CLASS(klass)->destroy = type_name##_internal_destroy;*/ \

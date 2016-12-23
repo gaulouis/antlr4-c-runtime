@@ -36,6 +36,9 @@
 #include "object.h"
 
 
+static char antlr_object_name_invalid[] = "N/A";
+
+
 ANTLR_DEFINE_TYPE(AntlrObject, antlr_object, ANTLR_TYPE_NONE)
 
 
@@ -102,4 +105,15 @@ antlr_object_destroy(AntlrObject *object)
     AntlrObjectClass *klass = antlr_type_get_class()[object->type];
 
     klass->destroy(object);
+}
+
+char*
+antlr_object_get_name(AntlrObject *object)
+{
+#if defined(ENABLE_DEBUG) && ENABLE_DEBUG
+    AntlrObjectClass * klass= antlr_type_get_class()[ANTLR_OBJECT(object)->type];
+    return klass->name;
+#else
+    return antlr_object_name_invalid;
+#endif
 }

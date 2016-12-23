@@ -15,9 +15,11 @@ add_library (${PROJECT_NAME}-runtime
     input-stream.c
     file-stream.c)
 
+if(ENABLE_DEBUG)
+  add_definitions(-DENABLE_DEBUG=1)
+endif()
+
 target_link_libraries (${PROJECT_NAME}-runtime ${PROJECT_NAME}-runtime-misc)
-target_compile_definitions(${PROJECT_NAME}-runtime PRIVATE ENABLE_DEBUG=1 BAR=1)
-add_definitions(-DENABLE_DEBUG=1)
 
 install (TARGETS ${PROJECT_NAME}-runtime DESTINATION lib)
 install (FILES

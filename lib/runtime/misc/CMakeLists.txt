@@ -1,9 +1,14 @@
 
 add_library (${PROJECT_NAME}-runtime-misc
-	object.c
-	type.c)
+    type.c
+    object.c
+    debug.c
+)
 include_directories ("${PROJECT_BINARY_DIR}/lib/runtime")
-target_compile_definitions(${PROJECT_NAME}-runtime-misc PRIVATE ENABLE_DEBUG=1 BAR=1)
+
+if(ENABLE_DEBUG)
+  add_definitions(-DENABLE_DEBUG=1)
+endif()
 
 install (FILES
 		macro.h

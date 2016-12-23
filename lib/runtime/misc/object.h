@@ -69,6 +69,7 @@ void      antlr_object_destroy(AntlrObject *object);
 void      antlr_object_ref(AntlrObject *object);
 void      antlr_object_unref(AntlrObject *object);
 //AntlrInputStream *stream = antlr_object_new(antlr_input_stream_get_type());
+char*     antlr_object_get_name(AntlrObject *object);
 
 
 
