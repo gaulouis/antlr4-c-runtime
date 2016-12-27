@@ -30,7 +30,6 @@
 #ifndef __ANTLR_FILE_STREAM_H__
 #define __ANTLR_FILE_STREAM_H__
 
-#include "types.h"
 
 ANTLR_BEGIN_DECLS
 
@@ -40,21 +39,55 @@ ANTLR_BEGIN_DECLS
 #define ANTLR_FILE_STREAM_GET_CLASS(obj) ((AntlrFileStreamClass*)(antlr_type_get_class()[ANTLR_TYPE_FILE_STREAM]))
 
 
-typedef struct _AntlrFileStream      AntlrFileStream;
+typedef struct AntlrFileStream      AntlrFileStream;//!< AntlrFileStream type
 typedef struct _AntlrFileStreamClass AntlrFileStreamClass;
 
-struct _AntlrFileStream
+/*!
+ *
+ * \brief The AntlrFileStream object
+ *
+ * This is an AntlrFileStream that is loaded from a file all at once when you
+ * construct the object.
+ *
+ */
+
+/*!
+ * AntlrFileStream class.
+ * \extends AntlrInputStream
+ */
+struct AntlrFileStream
 {
-    /*< private >*/
-    AntlrInputStream parent_instance;
+    AntlrInputStream parent_instance;//!< \protected Base class.
 };
 
+/*!
+ * \struct _AntlrFileStreamClass
+ * \brief The vtable of AntlrFileStream
+ *
+ * \relates AntlrFileStream
+ */
 struct _AntlrFileStreamClass
 {
-    /*< private >*/
-    AntlrInputStreamClass parent_class;
+    AntlrInputStreamClass parent_class;//!< \private Base class.
 };
 
+/*!
+ * \brief Get the AntlrType of AntlrFileStream object
+ * Note than it is by this function than AntlrFileStream vtable has initialized
+ * \relates AntlrFileStream
+ */
+AntlrType antlr_file_stream_get_type(void);
+
+/*!
+ * \brief Create a new AntlrFileStream instance.
+ * \return Output that is extra useful
+ *
+ * This method does unbelievably useful things.  
+ * And returns exceptionally useful results.
+ * Use it everyday with good health.
+ *
+ * \relates AntlrFileStream
+ */
 AntlrFileStream *antlr_file_stream_new(void);
 
 ANTLR_END_DECLS

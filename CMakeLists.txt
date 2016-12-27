@@ -11,3 +11,17 @@ option (ENABLE_DEBUG
 
 add_subdirectory (lib)
 add_subdirectory (src)
+
+
+
+# add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/doxygen.config ${CMAKE_CURRENT_BINARY_DIR}/docs/doxygen.config @ONLY)
+add_custom_target(doc
+${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/docs/doxygen.config
+WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/docs
+COMMENT "Generating API documentation with Doxygen" VERBATIM
+)
+endif(DOXYGEN_FOUND)
+

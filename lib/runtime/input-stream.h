@@ -31,6 +31,8 @@
 #define __ANTLR_INPUT_STREAM_H__
 
 
+
+
 ANTLR_BEGIN_DECLS
 
 
@@ -39,40 +41,69 @@ ANTLR_BEGIN_DECLS
 #define ANTLR_INPUT_STREAM_CLASS(klass)   ((AntlrInputStreamClass*)klass)
 #define ANTLR_INPUT_STREAM_GET_CLASS(obj) ((AntlrInputStreamClass*)(antlr_type_get_class()[ANTLR_TYPE_INPUT_STREAM]))
 
-
-//#define ANTLR_INPUT_STREAM_GET_TYPE(obj)  ANTLR_OBJECT(obj)->type
-//#define ANTLR_INPUT_STREAM_GET_CLASS(obj)
-// ((AntlrInputStreamClass*)antlr_class[ANTLR_OBJECT(obj)->type])
-
-typedef struct _AntlrInputStream      AntlrInputStream;
+typedef struct AntlrInputStream      AntlrInputStream;//!< AntlrInputStream type
 typedef struct _AntlrInputStreamClass AntlrInputStreamClass;
 
-struct _AntlrInputStream
+/*!
+ * \class AntlrInputStream input-stream.h
+ * \extends AntlrObject
+ * \brief The AntlrInputStream object
+ *
+ * Vacuum all input from a {@link Reader}/{@link InputStream} and then treat it
+ * like a {@code char[]} buffer. Can also pass in a {@link String} or
+ * {@code char[]} to use.
+ *
+ * If you need encoding, pass in stream/reader with correct encoding.
+ *
+ */
+struct AntlrInputStream
 {
-    /*< private >*/
-    AntlrObject parent_instance;
+    AntlrObject parent_instance;//!< \protected Base class.
 
-    /*< public >*/
-    char *name;
-    char* data;
-    int n;
-    int p;
+    char *name;//!< \public Name of stream
+    char* data;//!< \public Content of stream
+    int n;//!< \public Length of stream
+    int p;//!< \public Pointer of stream
 };
 
+/*!
+ * \relates AntlrInputStream
+ * \struct AntlrInputStreamClass
+ * \brief The vtable of AntlrInputStream
+ */
 struct _AntlrInputStreamClass
 {
     /*< private >*/
-    AntlrObjectClass parent_class;
-    AntlrIntStreamInterface AntlrIntStreamMember;
-    AntlrCharStreamInterface AntlrCharStreamMember;
+    struct AntlrObjectClass parent_class;
+    struct _AntlrIntStreamInterface AntlrIntStreamMember;
+    struct _AntlrCharStreamInterface AntlrCharStreamMember;
 
     /*< public >*/
     // public virtual methods
 };
 
+/*!
+ * \brief Get the AntlrType of AntlrInutStream object
+ * Note than it is by this function than AntlrInputStream vtable has initialized
+ * \relates AntlrInputStream
+ */
 AntlrType         antlr_input_stream_get_type(void);
+
+/*!
+ * \brief Create a new InputStream instance.
+ * \return Output that is extra useful
+ * \ingroup AntlrInputStream
+ *
+ * This method does unbelievably useful things.  
+ * And returns exceptionally useful results.
+ * Use it everyday with good health.
+ *
+ * \relates AntlrInputStream
+ */
 AntlrInputStream *antlr_input_stream_new(void);
 
+
 ANTLR_END_DECLS
+
 
 #endif // __ANTLR_INPUT_STREAM_H__

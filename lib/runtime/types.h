@@ -34,5 +34,4 @@
 
 
 
-
 #endif // __ANTLR_TYPES_H__

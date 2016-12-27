@@ -36,20 +36,27 @@
 #define ANTLR_OBJECT_CLASS(klass)   ((AntlrObjectClass*)klass)
 #define ANTLR_OBJECT_GET_CLASS(obj) ((AntlrObjectClass*)(antlr_type_get_class()[ANTLR_TYPE_OBJECT]))
 
-typedef struct _AntlrRef         AntlrRef;
-typedef struct _AntlrObject      AntlrObject;
-typedef struct _AntlrObjectClass AntlrObjectClass;
+typedef struct AntlrRef         AntlrRef;
+typedef struct AntlrObject      AntlrObject;//!< AntlrObject type
+typedef struct AntlrObjectClass AntlrObjectClass;
 
-struct _AntlrRef {
+struct AntlrRef {
     int count;
 };
-struct _AntlrObject {
-    /*< private >*/
-    AntlrRef ref;
+
+
+/*!
+ * \class AntlrObject misc/object.h
+ * \brief The AntlrObject object
+ *
+ * AntlrObject base class object of antlr.
+ */
+struct AntlrObject {
+    AntlrRef ref;//!< \private Reference count.
     AntlrType type;
 };
 
-struct _AntlrObjectClass {
+struct AntlrObjectClass {
     /*< private >*/
     AntlrType parent_type;
 
@@ -64,11 +71,30 @@ struct _AntlrObjectClass {
 };
 
 AntlrType antlr_object_get_type(void);
+/*!
+ * \param type The AntlrType of object
+ * \return New instance of \p type
+ *
+ * \biref Increments object reference count by one.
+ * \code{.c}
+ * AntlrFileStream *stream = antlr_object_new(ANTLR_TYPE_FILE_STREAM);
+ * antlr_object_unref(stream);// free it
+ * \endcode
+ * \public \memberof AntlrObject
+ */
 AntlrPtr  antlr_object_new(AntlrType type);
 void      antlr_object_destroy(AntlrObject *object);
+/*!
+ * Increments object reference count by one.
+ * \public \memberof AntlrObject
+ */
 void      antlr_object_ref(AntlrObject *object);
+
+/*!
+ * Decrements object reference count by one.
+ * \public \memberof AntlrObject
+ */
 void      antlr_object_unref(AntlrObject *object);
-//AntlrInputStream *stream = antlr_object_new(antlr_input_stream_get_type());
 char*     antlr_object_get_name(AntlrObject *object);
 
 
