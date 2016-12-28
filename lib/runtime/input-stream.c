@@ -53,7 +53,7 @@ ANTLR_DEFINE_TYPE_WITH_CODE (AntlrInputStream, antlr_input_stream, ANTLR_TYPE_OB
 static void
 antlr_input_stream_class_object_destroy(AntlrObject *object)
 {
-    ANTLR_OBJECT_GET_CLASS(object)->destroy(object);
+    ANTLR_OBJECT_CLASS(parent_class)->destroy(object);
 }
 
 static void
