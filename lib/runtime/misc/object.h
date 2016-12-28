@@ -42,6 +42,9 @@ typedef struct AntlrObjectClass AntlrObjectClass;
 
 struct AntlrRef {
     int count;
+    //int flag;// |= floating<<0
+               // |= weak<<1
+               // |= sink<<2
 };
 
 
@@ -70,7 +73,27 @@ struct AntlrObjectClass {
 #endif
 };
 
+/*!
+ * \return The AntlrType of object
+ *
+ * \biref This function returns the AntlrType of object.
+ *
+ * \relates AntlrObject
+ */
 AntlrType antlr_object_get_type(void);
+
+/*!
+ * \param type The AntlrType of object
+ * \return New instance of \p type
+ *
+ * \biref Increments object reference count by one.
+ * \code{.c}
+ * AntlrFileStream *stream = antlr_object_new(ANTLR_TYPE_FILE_STREAM);
+ * antlr_object_unref(stream);// free it
+ * \endcode
+ */
+AntlrPtr  antlr_object_new(AntlrType type);
+
 /*!
  * \param type The AntlrType of object
  * \return New instance of \p type
@@ -82,7 +105,6 @@ AntlrType antlr_object_get_type(void);
  * \endcode
  * \public \memberof AntlrObject
  */
-AntlrPtr  antlr_object_new(AntlrType type);
 void      antlr_object_destroy(AntlrObject *object);
 /*!
  * Increments object reference count by one.
@@ -95,6 +117,16 @@ void      antlr_object_ref(AntlrObject *object);
  * \public \memberof AntlrObject
  */
 void      antlr_object_unref(AntlrObject *object);
+
+/*!
+ * Return the name of the object
+ * \code{.c}
+ * AntlrFileStream *stream = antlr_object_new(ANTLR_TYPE_FILE_STREAM);
+ * printf("%s\n", antlr_object_get_name(ANTLR_OBJECT(stream)));// output "AntlrFileStream"
+ * \endcode
+ * \todo maybe antlr_type_get_name is a better name
+ * \public \memberof AntlrObject
+ */
 char*     antlr_object_get_name(AntlrObject *object);
 
 

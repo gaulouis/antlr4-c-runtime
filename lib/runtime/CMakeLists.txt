@@ -1,4 +1,4 @@
-add_subdirectory(misc)
+add_subdirectory(misc tree)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/lib/runtime/Config.h.in"

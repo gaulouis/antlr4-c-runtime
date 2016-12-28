@@ -41,11 +41,31 @@ ANTLR_BEGIN_DECLS
 #define ANTLR_TREE_CLASS(klass)   ((AntlrTreeClass*)klass)
 #define ANTLR_TREE_GET_CLASS(obj) ((AntlrTreeClass*)(antlr_type_get_class()[ANTLR_TYPE_TREE]))
 
-typedef struct AntlrTree      AntlrTree;//!< AntlrTree type
+typedef struct AntlrTree       AntlrTree;//!< AntlrTree type
 typedef struct _AntlrTreeClass AntlrTreeClass;
 
+/*
+typedef void*                  AntlrTreeNode;
+typedef GList*                 AntlrTreeNodeList;
+
+typedef struct AntlrTree       AntlrContextTree;
+typedef AntlrRuleContext       AntlrContextTreeNode;
+
+
+TreeNode
+ +- root
+ +- parent
+ +- children
+TreeNodeList
+ +- root
+ +- parent
+TreeRoot
+ +- list
+*/
+
+
 /*!
- * \class AntlrTree input-stream.h
+ * \struct AntlrTree tree.h antlr/runtime.h
  * \extends AntlrObject
  * \brief The AntlrTree object
  *
@@ -58,30 +78,59 @@ typedef struct _AntlrTreeClass AntlrTreeClass;
  */
 struct AntlrTree
 {
-    AntlrObject parent_instance;//!< \protected Base class.
+   /*!
+    * \brief The base class brief
+    * \private
+    *
+    * The base class description
+    */
+    AntlrObject parent_instance;
 
-    // AntlrTreeRoot (no parent, have children)
-    // AntlrTreeNode (have parent, have children)
-    // AntlrTreeLeaf (have parent, no children)
+    /*!
+     * \brief The root of an AntlrTree*
+     * 
+     * The root of a AntlrTree*
+     * If root is NULL then it is root of the tree
+     */
+    AntlrTree *root;/*SharedPtr*/
+    /*!
+     * \brief The parent of an AntlrTree*
+     * 
+     * The parent of a AntlrTreeNode
+     */
     AntlrTree *parent;/*SharedPtr*/
-    GList     *children;/* of AntlrTree OwnerPtr */
+    /*!
+     * \brief A list of AntlrTree*
+     * 
+     * The children of a AntlrTreeNode
+     */
+    GList     *children;
 };
 
 
 
 /*!
- * \relates AntlrTree
- * \struct AntlrTreeClass
+ * \struct _AntlrTreeClass
  * \brief The vtable of AntlrTree
+ * 
+ * \internal
  */
 struct _AntlrTreeClass
 {
-    struct AntlrObjectClass parent_class;//!< \private Base class.
+   /*!
+    * \brief The base vtable
+    * \protected
+    *
+    * The base vtable description
+    */
+    AntlrObjectClass parent_class;
 };
 
 /*!
- * \brief Get the AntlrType of AntlrInutStream object
+ * \brief Get the AntlrType of AntlrTree object
+ * 
  * Note than it is by this function than AntlrTree vtable has initialized
+ * 
  * \relates AntlrTree
  */
 AntlrType         antlr_tree_get_type(void);
