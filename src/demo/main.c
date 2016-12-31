@@ -92,15 +92,8 @@ int main(int argc, char *argv[])
     AntlrFileStream *stream = antlr_file_stream_new();
     antlr_int_stream_interface_consume(ANTLR_INT_STREAM_INTERFACE(stream));
 
-    printf("AntlrFileStream.instance_count: %d\n", antlr_object_get_instance_count(ANTLR_OBJECT(stream)));
     antlr_object_unref(ANTLR_OBJECT(stream));
-    printf("AntlrFileStream.instance_count: %d\n", antlr_object_get_instance_count(ANTLR_OBJECT(stream)));
 
-    printf("Kick starter!\n");
-    printf("[X] chaining constructor/initializer!\n");
-    printf("[X] chaining destroy!\n");
-    printf("[X] call interface!\n");
-    printf("[X] ref counting!\n");
     printf("[ ] TODO: end-user custom class\n");// in misc/macro.h
                                                 // modify ANTLR_DEFINE_TYPE _registry()
                                                 // to get static AntlrPtr antlr_type_class[] dynamic
@@ -109,6 +102,10 @@ int main(int argc, char *argv[])
                                                 // else
                                                 //    use dynamic array
     printf("[ ] TODO: Copy/past implementation from antlr4-GLib\n");
+    printf("[ ] TODO: refactor interface system\n");
+
+    // print the lost instance
+    antlr_type_check_instance();
     return 0;
 }
 

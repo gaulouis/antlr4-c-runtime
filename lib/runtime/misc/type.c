@@ -83,4 +83,19 @@ antlr_type_get_instance_count()
 {
     return antlr_type_instance_count;
 }
+#include <stdio.h>
+#include "object.h"
+void
+antlr_type_check_instance()
+{
+    int i;
+    for (i=0; i<N_ELEMENTS(antlr_type_instance_count); i++) {
+        unsigned int instance_count = antlr_type_instance_count[i];
+        if (instance_count) {
+            AntlrObjectClass *klass = antlr_type_class[i];
+            printf("%s has %d instance\n", klass->name, instance_count);
+        }
+    }
+}
+
 

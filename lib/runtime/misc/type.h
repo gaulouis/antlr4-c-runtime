@@ -60,5 +60,6 @@ int       antlr_type_get_class_size(AntlrType type);
 void      antlr_type_set_class_size(AntlrType type, int size);
 
 unsigned int*   antlr_type_get_instance_count();
+void            antlr_type_check_instance();
 
 #endif // __ANTLR_TYPE_H__

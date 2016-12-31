@@ -35,6 +35,7 @@ if [ -z $1 ]; then
 	cd "$workspace_dir/$dir-build"
 	cmake -DCMAKE_INSTALL_PREFIX:PATH="$workspace_dir/$dir-install" -DCMAKE_BUILD_TYPE:STRING=Debug -DENABLE_DEBUG:BOOL=1 "$workspace_dir/$dir"
 	make
+	make doc
 	make install
 elif [ $1 = '--help' -o $1 = '-h' ]; then
 	print_usage
