@@ -59,4 +59,6 @@ AntlrPtr* antlr_type_get_class();
 int       antlr_type_get_class_size(AntlrType type);
 void      antlr_type_set_class_size(AntlrType type, int size);
 
+unsigned int*   antlr_type_get_instance_count();
+
 #endif // __ANTLR_TYPE_H__

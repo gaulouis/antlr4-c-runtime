@@ -129,6 +129,6 @@ void      antlr_object_unref(AntlrObject *object);
  */
 char*     antlr_object_get_name(AntlrObject *object);
 
-
+unsigned int antlr_object_get_instance_count(AntlrObject *object);
 
 #endif // __ANTLR_OBJECT_H__

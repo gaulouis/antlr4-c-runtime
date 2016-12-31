@@ -93,7 +93,6 @@ antlr_input_stream_interface_char_stream_init(AntlrCharStreamInterface *iface)
     iface->get_text = 0;
 }
 
-
 void
 antlr_input_stream_init(AntlrInputStream *self)
 {

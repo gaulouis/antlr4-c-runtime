@@ -42,6 +42,14 @@ static AntlrPtr antlr_type_class[/*AntlrTypes*/] = {
     0,
     0
 };
+static unsigned int antlr_type_instance_count[N_ELEMENTS(antlr_type_class)] = {
+    0, //AntlrNoneClass          initializer to zero
+    0, //AntlrObjectClass        initializer to zero
+    0, //AntlrInputStreamClass   initializer to zero
+    0, //AntlrFileStreamClass    initializer to zero
+    0,
+    0
+};
 
 static int antlr_class_size[N_ELEMENTS(antlr_type_class)] = {0};// AntlrNoneClass is 0
 
@@ -69,3 +77,10 @@ antlr_type_set_class_size(AntlrType type, int size)
 {
     antlr_class_size[type] = size;
 }
+
+unsigned int*
+antlr_type_get_instance_count()
+{
+    return antlr_type_instance_count;
+}
+

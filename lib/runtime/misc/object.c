@@ -94,6 +94,8 @@ antlr_object_new(AntlrType type)
     AntlrObjectClass *klass = antlr_type_get_class()[type];
 
     AntlrPtr object = klass->construct();
+    antlr_type_get_instance_count()[type]++;
+
     klass->init(object);
 
     return object;
@@ -102,9 +104,12 @@ antlr_object_new(AntlrType type)
 void
 antlr_object_destroy(AntlrObject *object)
 {
-    AntlrObjectClass *klass = antlr_type_get_class()[object->type];
+    AntlrType type = object->type;
+    AntlrObjectClass *klass = antlr_type_get_class()[type];
 
     klass->destroy(object);
+
+    antlr_type_get_instance_count()[type]--;
 }
 
 char*
@@ -117,3 +122,11 @@ antlr_object_get_name(AntlrObject *object)
     return antlr_object_name_invalid;
 #endif
 }
+
+unsigned int
+antlr_object_get_instance_count(AntlrObject *object)
+{
+    return antlr_type_get_instance_count()[object->type];
+}
+
+

@@ -92,7 +92,9 @@ int main(int argc, char *argv[])
     AntlrFileStream *stream = antlr_file_stream_new();
     antlr_int_stream_interface_consume(ANTLR_INT_STREAM_INTERFACE(stream));
 
+    printf("AntlrFileStream.instance_count: %d\n", antlr_object_get_instance_count(ANTLR_OBJECT(stream)));
     antlr_object_unref(ANTLR_OBJECT(stream));
+    printf("AntlrFileStream.instance_count: %d\n", antlr_object_get_instance_count(ANTLR_OBJECT(stream)));
 
     printf("Kick starter!\n");
     printf("[X] chaining constructor/initializer!\n");
