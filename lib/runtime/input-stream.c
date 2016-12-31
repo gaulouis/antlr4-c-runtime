@@ -62,18 +62,18 @@ antlr_input_stream_class_init(AntlrInputStreamClass *klass)
     ANTLR_OBJECT_CLASS(klass)->destroy = antlr_input_stream_class_object_destroy;
 }
 
+
+
 #include <stdio.h>
 #include "misc/debug.h"
-static int antlr_input_stream_debug = 0;
+static int antlr_input_stream_debug = -1;
 
 static void
 antlr_input_stream_interface_int_stream_consume(AntlrIntStreamI *stream)
 {
     AntlrInputStream *self = ANTLR_INPUT_STREAM(stream);
-    if (!antlr_debug_initialized) {
-        antlr_debug_initialized = 1;
-        int any_flag = antlr_debug_get_flags();
-        antlr_input_stream_debug = any_flag ? 1 : 0;
+    if (-1==antlr_input_stream_debug) {
+        antlr_input_stream_debug = antlr_debug_get_flag(ANTLR_DEBUG_FLAG_ALL);
     }
 
     if (antlr_input_stream_debug) {

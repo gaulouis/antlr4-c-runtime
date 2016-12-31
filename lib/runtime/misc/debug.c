@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 
-static int antlr_debug_flags = 0x00;
+static unsigned int antlr_debug_flags = 0x00;
+static int antlr_debug_flags_initialized = 0;
 
 /*
  * Usage:
@@ -29,10 +30,10 @@ static int antlr_debug_flags = 0x00;
  *
  */
 
-int
+static unsigned int
 antlr_debug_get_flags(void)
 {
-    int debug_flags = 0x00;
+    unsigned int debug_flags = 0x00;
     const char *delimiter = " ,";
     char *debug_env = getenv("ANTLR_DEBUG");
     if (debug_env) {
@@ -52,3 +53,15 @@ antlr_debug_get_flags(void)
 
     return debug_flags;
 }
+
+int
+antlr_debug_get_flag(unsigned int flag)
+{
+    if (! antlr_debug_flags_initialized) {
+        antlr_debug_flags = antlr_debug_get_flags();
+        antlr_debug_flags_initialized = 1;
+    }
+
+    return (antlr_debug_flags & flag)==flag ? 1 : 0;
+}
+
