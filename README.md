@@ -26,9 +26,7 @@ $ make install
 + Implementation Unit tests fonctionnal tests
 
 
-Welcome to the antlr4-c-runtime wiki!
-
-Simple C example
+## Simple antlr4-c-runtime example:
 ```C
 #include <antlr/runtime.h>
 #include "sql-antlr.h" // SqlLexer, SqlParser, SqlContextStatement, SqlListener
