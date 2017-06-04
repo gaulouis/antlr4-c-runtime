@@ -38,8 +38,8 @@ main (int argc, char *argv[])
     AntlrParser *parser;
     AntlrContextStatement *stat_context = NULL;
     
-    const char *filename = "/home/user/local/src/antlr-c-runtime/share/scripts/test.sql";    
-    parser = sql_parser_new_from_filename(filename, &error);
+    const char *filename = "./test.sql";    
+    parser = sql_parser_load_filename(filename, &error);
     if (NULL==parser) {
         printf("Error: %s\n", error->message);
         antlr_free(error);
