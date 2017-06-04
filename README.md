@@ -42,7 +42,7 @@ main (int argc, char *argv[])
     parser = sql_parser_new_from_filename(filename, &error);
     if (NULL==parser) {
         printf("Error: %s\n", error->message);
-        antlr_object_unref(error);
+        antlr_free(error);
         return 1;// exit
     }
 
@@ -50,13 +50,13 @@ main (int argc, char *argv[])
     stat_context = sql_parser_parse_statement(SQL_PARSER(parser), &error);
     if (!stat_context) {
         printf("Error: %s\n", error->message);
-        antlr_object_unref(error);
+        antlr_free(error);
         return 1;// exit
     }
 
     // Free memory
-    antlr_object_unref(parser);
-    antlr_object_unref(stat_context);
+    antlr_free(parser);// destroy 
+    antlr_unref(stat_context);// ref counting
 
     return 0;
 }
