@@ -35,28 +35,22 @@ int
 main (int argc, char *argv[])
 {
     AntlrError *error = NULL;
-    AntlrParser *parser;
-    AntlrContextStatement *stat_context = NULL;
+    AntlrDocument *doc;
+    AntlrElement *root;
     
-    const char *filename = "./test.sql";    
-    parser = sql_parser_load_filename(filename, &error);
-    if (NULL==parser) {
+    doc = antlr_read_file("script.sql", SQL_TYPE_PARSER, &error);
+    if (NULL==doc) {
         printf("Error: %s\n", error->message);
         antlr_free(error);
         return 1;// exit
     }
 
-    // Specify our entry point
-    stat_context = sql_parser_parse_statement(SQL_PARSER(parser), &error);
-    if (!stat_context) {
-        printf("Error: %s\n", error->message);
-        antlr_free(error);
-        return 1;// exit
-    }
-
+    /*Get the root element node */
+    root = antlr_get_root_node(doc);
+    antlr_print_context_names(root);
+    
     // Free memory
-    antlr_free(parser);// destroy 
-    antlr_unref(stat_context);// ref counting
+    antlr_free(doc);// destroy 
 
     return 0;
 }
