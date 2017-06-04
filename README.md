@@ -24,3 +24,42 @@ $ make install
 + Create a gdb pretty print python script
 + Implementation of antlr
 + Implementation Unit tests fonctionnal tests
+
+
+Welcome to the antlr4-c-runtime wiki!
+
+Simple C example
+```C
+#include <antlr/runtime.h>
+#include "sql-antlr.h" // SqlLexer, SqlParser, SqlContextStatement, SqlListener
+int
+main (int argc, char *argv[])
+{
+    GError *error = NULL;
+    AntlrParser *parser;
+    AntlrContextStatement *stat_context = NULL;
+    
+    const gchar *filename = "/home/user/local/src/antlr-c-runtime/share/scripts/test.sql";    
+    // Pass the tokens to the parser
+    parser = sql_parser_new_from_filename(filename, &error);
+    if (!parser) {
+        printf("Error: %s\n", error->message);
+        antlr_object_unref(error);
+        return 1;// exit
+    }
+
+    // Specify our entry point
+    stat_context = sql_parser_parse_statement(SQL_PARSER(parser), &error);
+    if (!stat_context) {
+        printf("Error: %s\n", error->message);
+        antlr_object_unref(error);
+        return 1;// exit
+    }
+
+    // Free memory
+    antlr_object_unref(parser);
+    antlr_object_unref(stat_context);
+
+    return 0;
+}
+```
