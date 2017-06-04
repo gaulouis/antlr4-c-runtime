@@ -30,17 +30,17 @@ $ make install
 ```C
 #include <antlr/runtime.h>
 #include "sql-antlr.h" // SqlLexer, SqlParser, SqlContextStatement, SqlListener
+
 int
 main (int argc, char *argv[])
 {
-    GError *error = NULL;
+    AntlrError *error = NULL;
     AntlrParser *parser;
     AntlrContextStatement *stat_context = NULL;
     
-    const gchar *filename = "/home/user/local/src/antlr-c-runtime/share/scripts/test.sql";    
-    // Pass the tokens to the parser
+    const char *filename = "/home/user/local/src/antlr-c-runtime/share/scripts/test.sql";    
     parser = sql_parser_new_from_filename(filename, &error);
-    if (!parser) {
+    if (NULL==parser) {
         printf("Error: %s\n", error->message);
         antlr_object_unref(error);
         return 1;// exit
